@@ -1,8 +1,8 @@
 @startuml
-title Monitor de Coagulante: Configuração de Sensores
+title Monitor de Coagulação:: Configuração de Sensores
 
 actor Fabricante as F
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 
 F -> MC: Configuração Sensores (parâmetro)
 

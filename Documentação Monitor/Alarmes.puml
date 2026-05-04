@@ -1,7 +1,7 @@
 @startuml
-title Monitor de Coagulante: Tratamento de Falhas e Alarmes
+title Monitor de Coagulação: Tratamento de Falhas e Alarmes
 
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 participant Sensores as S
 participant "Bombas" as B
 participant Gateway as GW

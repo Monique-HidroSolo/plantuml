@@ -1,11 +1,11 @@
 @startuml
-title Monitor de Coagulante: Atualização do Histórico de Dosagem
+title Monitor de Coagulação:: Atualização do Histórico de Dosagem
 
 actor Cliente as C
 participant Plataforma as P
 participant AWS as AWS
 participant Gateway as GW
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 
 == Upload do Histórico ==
 C -> P: Envia novo histórico de dosagem

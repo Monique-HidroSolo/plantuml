@@ -1,11 +1,11 @@
 @startuml
-title Monitor de Coagulante: Atualização de Firmware
+title Monitor de Coagulação:: Atualização de Firmware
 
 actor Fabricante as F
 participant Plataforma as P
 participant AWS as AWS
 participant Gateway as GW
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 
 == Upload do firmware ==
 F -> P: Carrega novo firmware

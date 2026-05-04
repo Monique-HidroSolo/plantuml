@@ -12,7 +12,7 @@
 !include <tupadr3/font-awesome/gears>
 !include <tupadr3/font-awesome-6/computer>
 
-title Diagrama de Contexto — Monitor de Coagulante
+title Diagrama de Contexto — Monitor de Coagulação:
 
 top to bottom direction
 
@@ -50,7 +50,7 @@ skinparam rectangle<<pessoa>> {
 hide stereotype
 
 FA5_USER(iconFab, "Fabricante\nInstalador/Mantenedor", rectangle, #FFFFFF) <<pessoa>>
-FA_GEARS(iconMC, "Monitor de Coagulante \n\n Leitura de Sensores,\n Calcula Dosagem", rectangle, #FFFFFF) <<sistema>>
+FA_GEARS(iconMC, "Monitor de Coagulação: \n\n Leitura de Sensores,\n Calcula Dosagem", rectangle, #FFFFFF) <<sistema>>
 FA5_TINT(iconModbus, "Turbidez/pH/Vazão/Cor", rectangle, #FFFFFF)
 FA_GEARS(iconGW, "Gateway", rectangle, #FFFFFF) <<sistema>>
 FA5_INDUSTRY(iconAtuadores, "Bombas", rectangle, #FFFFFF)

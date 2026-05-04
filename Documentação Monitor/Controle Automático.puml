@@ -1,8 +1,8 @@
 @startuml
-title Monitor de Coagulante: Controle Automático
+title Monitor de Coagulação:: Controle Automático
 
 participant Gateway as GW
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 participant Sensores as S
 participant "Bombas (Alcalinizante/Coagulante)" as B
 participant "Sensores de Vazão (Alcalinizante/Coagulante)" as V

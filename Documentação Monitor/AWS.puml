@@ -1,7 +1,7 @@
 @startuml
-title Monitor de Coagulante: Envio de Dados para AWS
+title Monitor de Coagulação:: Envio de Dados para AWS
 
-participant "Monitor de Coagulante" as MC
+participant "Monitor de Coagulação:" as MC
 participant Gateway as GW
 participant AWS as AWS
 
