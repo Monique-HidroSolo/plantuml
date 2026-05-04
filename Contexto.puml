@@ -1,0 +1,70 @@
+@startuml contexto
+
+!include <tupadr3/common>
+!include <tupadr3/font-awesome-5/user>
+!include <tupadr3/font-awesome-5/server>
+!include <tupadr3/font-awesome-5/database>
+!include <tupadr3/font-awesome-5/microchip>
+!include <tupadr3/font-awesome-5/network_wired>
+!include <tupadr3/font-awesome-5/cloud>
+!include <tupadr3/font-awesome-5/tint>
+!include <tupadr3/font-awesome-5/industry>
+!include <tupadr3/font-awesome/gears>
+!include <tupadr3/font-awesome-6/computer>
+
+title Diagrama de Contexto — Monitor de Coagulante
+
+top to bottom direction
+
+skinparam defaultTextAlignment center
+skinparam arrowMessageAlignment center
+skinparam ArrowColor #444444
+skinparam ArrowThickness 1.5
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 120
+skinparam rectangleFontColor #FFFFFF
+skinparam rectangleBorderColor #2C3E50
+skinparam rectangleRoundCorner 6
+
+skinparam rectangle {
+ BackgroundColor #5D6D7E
+ BorderColor #2C3E50
+ FontColor #FFFFFF
+ FontSize 13
+}
+
+skinparam rectangle<<sistema>> {
+ BackgroundColor #1A5276
+ BorderColor #154360
+ FontColor #FFFFFF
+ FontSize 14
+}
+
+skinparam rectangle<<pessoa>> {
+ BackgroundColor #5
+ BorderColor #154360
+ FontColor #FFFFFF
+}
+
+hide stereotype
+
+FA5_USER(iconFab, "Fabricante\nInstalador/Mantenedor", rectangle, #FFFFFF) <<pessoa>>
+FA_GEARS(iconMC, "Monitor de Coagulante \n\n Leitura de Sensores,\n Calcula Dosagem", rectangle, #FFFFFF) <<sistema>>
+FA5_TINT(iconModbus, "Turbidez/pH/Vazão/Cor", rectangle, #FFFFFF)
+FA_GEARS(iconGW, "Gateway", rectangle, #FFFFFF) <<sistema>>
+FA5_INDUSTRY(iconAtuadores, "Bombas", rectangle, #FFFFFF)
+FA5_CLOUD(iconAWS, "AWS", rectangle, #FF9900)
+FA5_DATABASE(iconDB, "DATABASE", rectangle, #FFFFFF)
+FA6_COMPUTER(iconC, "Plataforma", rectangle, #FFFFFF)
+
+iconFab      -down-> iconMC       : Modbus\nSHELL\nUSB
+iconModbus   -up-> iconMC       : "Modbus RTU  \n 4-20 mA"
+iconModbus   -right-> iconGW       : "Modbus RTU \n 4-20 mA"
+iconMC       -down-> iconAtuadores: "4-20 mA"
+iconMC <-down-> iconGW :\nModbus
+iconGW       <-down-> iconAWS     : MQTT / HTTP
+iconAWS      <-right-> iconDB
+iconC      <-right-> iconAWS
+
+@enduml
