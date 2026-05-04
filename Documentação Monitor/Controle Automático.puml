@@ -1,0 +1,39 @@
+@startuml
+title Monitor de Coagulante: Controle Automático
+
+participant Gateway as GW
+participant "Monitor de Coagulante" as MC
+participant Sensores as S
+participant "Bombas (Alcalinizante/Coagulante)" as B
+participant "Sensores de Vazão (Alcalinizante/Coagulante)" as V
+
+loop Ciclo contínuo de controle
+    MC -> S: Lê sensores locais
+    S --> MC: Retorna leituras
+
+    MC -> GW: Solicita leituras de sensores remotos (pH, turbidez, etc.)
+    GW --> MC: Retorna leituras
+
+    MC -> MC: Calcula a dosagem necessária
+
+    MC -> B: Ajusta a vazão das bombas
+    B --> MC: Confirma ajuste
+
+    MC -> V: Lê sensores de vazão
+    V --> MC: Retorna vazão real
+
+    MC -> MC: Compara vazão desejada x vazão real
+
+    alt Vazão dentro do esperado
+        MC -> MC: Mantém configuração
+    else Vazão fora do esperado
+        MC -> B: Reajusta a vazão
+    end
+
+    MC -> MC: Salva backup (leituras, dosagem e vazão)
+
+    GW -> MC: Solicita backup
+    MC --> GW: Envia backup
+end
+
+@enduml

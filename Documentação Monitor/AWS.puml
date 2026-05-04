@@ -1,0 +1,22 @@
+@startuml
+title Monitor de Coagulante: Envio de Dados para AWS
+
+participant "Monitor de Coagulante" as MC
+participant Gateway as GW
+participant AWS as AWS
+
+loop Ciclo de envio
+    GW -> MC: Requisita backup
+    MC --> GW: Envia dados (leituras, dosagem, vazão)
+
+    GW -> GW: Monta pacote de envio
+
+    GW -> AWS: Envia dados
+    alt Sucesso
+        AWS --> GW: Confirma recebimento
+    else Falha de comunicação
+        GW -> GW: Armazena para retry
+    end
+end
+
+@enduml

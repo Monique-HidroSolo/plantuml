@@ -1,0 +1,33 @@
+@startuml
+title Monitor de Coagulante: Atualização do Histórico de Dosagem
+
+actor Cliente as C
+participant Plataforma as P
+participant AWS as AWS
+participant Gateway as GW
+participant "Monitor de Coagulante" as MC
+
+== Upload do Histórico ==
+C -> P: Envia novo histórico de dosagem
+P -> AWS: Armazena histórico
+AWS --> P: Confirma armazenamento
+P --> C: Confirma upload do histórico
+
+== Atualização no Equipamento ==
+C -> GW: Solicita atualização do histórico
+GW -> AWS: Solicita download do histórico
+AWS --> GW: Envia o histórico
+
+GW -> MC: Envia histórico via Modbus
+MC -> MC: Valida integridade do histórico
+
+alt Histórico válido
+    MC -> MC: Salva novo histórico
+    MC --> GW: Resposta OK
+    GW --> C: Atualização realizada com sucesso
+else Histórico inválido
+    MC --> GW: Resposta ERRO
+    GW --> C: Falha na atualização do histórico
+end
+
+@enduml

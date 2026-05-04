@@ -1,0 +1,34 @@
+@startuml
+title Monitor de Coagulante: Atualização de Firmware
+
+actor Fabricante as F
+participant Plataforma as P
+participant AWS as AWS
+participant Gateway as GW
+participant "Monitor de Coagulante" as MC
+
+== Upload do firmware ==
+F -> P: Carrega novo firmware
+P -> AWS: Armazena o firmware
+AWS --> P: Confirma armazenamento
+P --> F: Confirma upload do firmware
+
+== Atualização no equipamento ==
+GW -> AWS: Verifica firmware disponível
+AWS --> GW: Envia firmware
+
+GW -> GW: Seleciona dispositivo alvo
+GW -> MC: Envia firmware via Modbus
+
+MC -> MC: Valida integridade do firmware
+
+alt Firmware válido
+    MC -> MC: Salva novo firmware
+    MC --> GW: Resposta OK
+    GW --> F: Notifica sucesso na atualização
+else Firmware inválido
+    MC --> GW: Resposta ERRO
+    GW --> F: Notifica falha na atualização
+end
+
+@enduml

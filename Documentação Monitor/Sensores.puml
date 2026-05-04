@@ -1,0 +1,21 @@
+@startuml
+title Monitor de Coagulante: Configuração de Sensores
+
+actor Fabricante as F
+participant "Monitor de Coagulante" as MC
+
+F -> MC: Configuração Sensores (parâmetro)
+
+alt Adicionar sensor
+    MC -> MC: Registra novo sensor
+else Alterar sensor
+    MC -> MC: Atualiza parâmetros
+else Remover sensor
+    MC -> MC: Remove sensor
+end
+
+MC -> MC: Salva configuração
+
+MC -> F: Confirma operação
+
+@enduml

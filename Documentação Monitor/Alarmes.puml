@@ -1,0 +1,27 @@
+@startuml
+title Monitor de Coagulante: Tratamento de Falhas e Alarmes
+
+participant "Monitor de Coagulante" as MC
+participant Sensores as S
+participant "Bombas" as B
+participant Gateway as GW
+
+MC -> S: Lê sensores
+S --> MC: Retorna valores
+
+alt Sensor inválido ou sem resposta
+    MC -> MC: Gera alarme de sensor
+    MC -> GW: Notifica falha
+else Sensor OK
+    MC -> B: Ajusta bomba
+    B --> MC: Status
+
+    alt Falha na bomba
+        MC -> MC: Gera alarme de atuador
+        MC -> GW: Notifica falha
+    else Bombas OK
+        MC -> MC: Continua operação
+    end
+end
+
+@enduml
