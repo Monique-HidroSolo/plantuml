@@ -35,7 +35,7 @@ rectangle "Monitor de Coagulação\n\n\n\n"  {
 !define F_LINK(x) F -up-> x #line:black;line.bold;text:black
 !define M_LINK(x) M -up-> x #line:blue;line.bold;text:blue
 !define O_LINK(x) O -left-> x #line:green;line.bold;text:green
-!define CFO_LINK(x) CFO -left-> x #line:red;line.bold;text:red
+!define CFO_LINK(x) CFO -up-> x #line:red;line.bold;text:red
 
 !define INCLUDE_LINK(x,y,z) x .z.> y : <<include>>
 
@@ -68,8 +68,9 @@ O_LINK(LS)
 
 INCLUDE_LINK(B,AS,down)
 INCLUDE_LINK(B,DP,up)
+INCLUDE_LINK(AT, AS, up)
 
-AT -[hidden]up-> AF
+AT -[hidden]right-> AF
 
 
 @enduml
