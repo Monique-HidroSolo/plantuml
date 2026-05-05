@@ -19,9 +19,6 @@ skinparam usecase {
 rectangle "Monitor de Coagulação\n\n\n\n"  {
   usecase "Cadastrar Histórico de Dosagem" as CHD
   usecase "Consultar Histórico de Dosagem" as CoHD
-  usecase "Remover Sensores" as RS
-  usecase "Adicionar Sensores" as ADS
-  usecase "Editar Sensores" as ES
   usecase "Consultar Logger" as CL
   usecase "Consultar Eventos" as CE
   usecase "Ler Sensores" as LS
@@ -32,6 +29,7 @@ rectangle "Monitor de Coagulação\n\n\n\n"  {
   usecase "Atualização de Firmware" as AF
 }
 
+
 !define F_LINK(x) F -up-> x #line:black;line.bold;text:black
 !define M_LINK(x) M -up-> x #line:blue;line.bold;text:blue
 !define O_LINK(x) O -left-> x #line:green;line.bold;text:green
@@ -41,9 +39,6 @@ rectangle "Monitor de Coagulação\n\n\n\n"  {
 
 F_LINK(CHD)
 F_LINK(CoHD)
-F_LINK(RS)
-F_LINK(ADS)
-F_LINK(ES)
 F_LINK(AF)
 F_LINK(CL)
 F_LINK(CE)
@@ -51,9 +46,6 @@ F_LINK(LS)
 
 M_LINK(CoHD)
 M_LINK(CHD)
-M_LINK(RS)
-M_LINK(ADS)
-M_LINK(ES)
 M_LINK(CL)
 M_LINK(CE)
 M_LINK(LS)
@@ -69,8 +61,6 @@ O_LINK(LS)
 INCLUDE_LINK(B,AS,down)
 INCLUDE_LINK(B,DP,up)
 INCLUDE_LINK(AT, AS, up)
-
-AT -[hidden]right-> AF
 
 
 @enduml
