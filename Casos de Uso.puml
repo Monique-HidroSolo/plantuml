@@ -1,0 +1,75 @@
+@startuml
+
+top to bottom direction
+skinparam linetype ortho
+
+actor "Fabricante" as F #line:black;line.bold;text:black
+actor "Instalador/Mantenedor" as M #line:blue;line.bold;text:blue
+actor "Operador" as O #line:green;line.bold;text:green
+actor "Chefe de Operação" as CFO #line:red;line.bold;text:red
+
+title Casos de Uso
+
+skinparam usecase {
+  BackgroundColor #F9F9F9
+  BorderColor black
+  FontSize 12
+}
+
+rectangle "Monitor de Coagulação\n\n\n\n"  {
+  usecase "Cadastrar Histórico de Dosagem" as CHD
+  usecase "Consultar Histórico de Dosagem" as CoHD
+  usecase "Remover Sensores" as RS
+  usecase "Adicionar Sensores" as ADS
+  usecase "Editar Sensores" as ES
+  usecase "Consultar Logger" as CL
+  usecase "Consultar Eventos" as CE
+  usecase "Ler Sensores" as LS
+  usecase "Amostrar Sensores" as AS
+  usecase "Dosagem de Produto" as DP
+  usecase "Backup" as B
+  usecase "Autoteste" as AT
+  usecase "Atualização de Firmware" as AF
+}
+
+!define F_LINK(x) F -up-> x #line:black;line.bold;text:black
+!define M_LINK(x) M -up-> x #line:blue;line.bold;text:blue
+!define O_LINK(x) O -left-> x #line:green;line.bold;text:green
+!define CFO_LINK(x) CFO -left-> x #line:red;line.bold;text:red
+
+!define INCLUDE_LINK(x,y,z) x .z.> y : <<include>>
+
+F_LINK(CHD)
+F_LINK(CoHD)
+F_LINK(RS)
+F_LINK(ADS)
+F_LINK(ES)
+F_LINK(AF)
+F_LINK(CL)
+F_LINK(CE)
+F_LINK(LS)
+
+M_LINK(CoHD)
+M_LINK(CHD)
+M_LINK(RS)
+M_LINK(ADS)
+M_LINK(ES)
+M_LINK(CL)
+M_LINK(CE)
+M_LINK(LS)
+
+CFO_LINK(CHD)
+CFO_LINK(CoHD)
+CFO_LINK(CE)
+CFO_LINK(LS)
+
+O_LINK(CE)
+O_LINK(LS)
+
+INCLUDE_LINK(B,AS,down)
+INCLUDE_LINK(B,DP,up)
+
+AT -[hidden]up-> AF
+
+
+@enduml
