@@ -4,15 +4,13 @@ title Monitor de Coagulação:: Controle Automático
 participant Gateway as GW
 participant "Monitor de Coagulação:" as MC
 participant Sensores as S
-participant "Bombas (Alcalinizante/Coagulante)" as B
-participant "Sensores de Vazão (Alcalinizante/Coagulante)" as V
+participant "Bombas \n (Alcalinizante/Coagulante)" as B
+participant "Sensores de Vazão \n (Alcalinizante/Coagulante)" as V
 
 loop Ciclo contínuo de controle
-    MC -> S: Lê sensores locais
-    S --> MC: Retorna leituras
 
-    MC -> GW: Solicita leituras de sensores remotos (pH, turbidez, etc.)
-    GW --> MC: Retorna leituras
+    GW -> MC: Dose  (pH, turbidez, etc.)
+
 
     MC -> MC: Calcula a dosagem necessária
 
@@ -30,10 +28,7 @@ loop Ciclo contínuo de controle
         MC -> B: Reajusta a vazão
     end
 
-    MC -> MC: Salva backup (leituras, dosagem e vazão)
-
-    GW -> MC: Solicita backup
-    MC --> GW: Envia backup
+    MC --> GW: Retorna a Dosagem Atual
 end
 
 @enduml

@@ -1,0 +1,71 @@
+@startuml
+
+title Fluxo Atualização de Firmware
+
+start
+
+:Aguardando mensagens de atualização;
+:Verifica o tipo da mensagens;
+
+switch (Tipo da Mensagem)
+
+case ( FIRMWARE_UPDATE_METADATA )
+    :Recebe metadados do firmware;
+    :Valida informações da atualização;
+
+    if (Baixar o firmware?) then (Sim)
+        :Salva os metadados;
+        :Limpa a partição;
+        :Autorizar o inicio do download;
+        :Reporta sucesso (ERROR_OK);
+    else (Não)
+        :Ignora atualização;
+        :Reporta erro (ERROR_TOO_BIG ou ERROR_REFUSED);
+
+    endif
+
+case (  FIRMWARE_UPDATE_DATA )
+    if (Permissão para download?) then (Sim)
+        :Recebe pacote do firmware;
+        :Processa pacote recebido;
+        :Armazena pacote na memória flash;
+    else (Não)
+        :Reporta erro (ERROR_PERMISSION_DENIED);
+    endif
+
+case ( FIRMWARE_UPDATE_TRANSFER_COMPLETE )
+
+    :Finaliza recebimento do firmware;
+    :Valida tamanho do firmware;
+    :Calcula CRC;
+    :Calcula Hash;
+    if (Íntegro?) then (Sim)
+        :Sinalizar novo firmware;
+        :Reporta sucesso (ERROR_OK);
+    else (Não)
+        :Limpar a partição;
+        :Cancela a atualização;
+        :Reporta erro (ERROR_BAD_MESSAGE);
+    endif
+
+
+case ( FIRMWARE_UPDATE_ABORT )
+
+    :Cancela processo de atualização;
+    :Limpa a partição;
+    :Descarta dados temporários;
+    :Reporta sucesso (ERROR_OK);
+
+case ( FIRMWARE_UPDATE_REBOOT )
+
+    :Reporta sucesso (ERROR_OK);
+    :Reinicia sistema;
+
+case ( UNKNOWN )
+    :Reporta erro (ERROR_NOT_IMPLEMENTED);
+
+endswitch
+
+stop
+
+@enduml

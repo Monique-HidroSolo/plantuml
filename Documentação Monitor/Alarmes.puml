@@ -6,22 +6,24 @@ participant Sensores as S
 participant "Bombas" as B
 participant Gateway as GW
 
-MC -> S: Lê sensores
-S --> MC: Retorna valores
+GW -> S: Lê sensores
+S --> GW: Retorna valores
 
-alt Sensor inválido ou sem resposta
-    MC -> MC: Gera alarme de sensor
-    MC -> GW: Notifica falha
-else Sensor OK
+GW -> MC: Comando de Dose(Turbidez, pH, ...)
+
+alt Sensor OK
     MC -> B: Ajusta bomba
     B --> MC: Status
 
     alt Falha na bomba
         MC -> MC: Gera alarme de atuador
-        MC -> GW: Notifica falha
+        MC --> GW: Notifica falha (Bomba não responde)
     else Bombas OK
         MC -> MC: Continua operação
+        MC --> GW: Notificar sucesso (Dosagem atual)
     end
+else Sensor Error
+    MC --> GW: Notifica erro (Parâmetros fora do padrão)
 end
 
 @enduml

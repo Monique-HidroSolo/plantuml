@@ -14,8 +14,7 @@ AWS --> P: Confirma armazenamento
 P --> C: Confirma upload do histórico
 
 == Atualização no Equipamento ==
-C -> GW: Solicita atualização do histórico
-GW -> AWS: Solicita download do histórico
+GW -> AWS: Verificar  Histórico de Dosagem
 AWS --> GW: Envia o histórico
 
 GW -> MC: Envia histórico via Modbus
@@ -24,10 +23,9 @@ MC -> MC: Valida integridade do histórico
 alt Histórico válido
     MC -> MC: Salva novo histórico
     MC --> GW: Resposta OK
-    GW --> C: Atualização realizada com sucesso
 else Histórico inválido
     MC --> GW: Resposta ERRO
-    GW --> C: Falha na atualização do histórico
 end
+GW --> AWS: Confirma a recebimento ou falha
 
 @enduml

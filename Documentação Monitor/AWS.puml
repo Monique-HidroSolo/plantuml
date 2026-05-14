@@ -4,10 +4,14 @@ title Monitor de Coagulação:: Envio de Dados para AWS
 participant "Monitor de Coagulação:" as MC
 participant Gateway as GW
 participant AWS as AWS
+participant Sensores as S
 
 loop Ciclo de envio
-    GW -> MC: Requisita backup
-    MC --> GW: Envia dados (leituras, dosagem, vazão)
+    GW -> S: Leitura dos Sensores
+    S --> GW: Retorna leituras
+
+    GW -> MC: Dose (Turbidez, pH, ...)
+    MC --> GW: Dosagem Atual
 
     GW -> GW: Monta pacote de envio
 
